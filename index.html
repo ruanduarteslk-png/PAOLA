@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Feliz Aniversário!</title>
+<title>Feliz Aniversário</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 
@@ -26,6 +26,7 @@ body {
   max-width: 400px;
   width: 100%;
   text-align: center;
+  box-shadow: 0 0 25px rgba(0,0,0,0.4);
 }
 
 .name {
@@ -57,6 +58,7 @@ body {
   object-fit: cover;
   border-radius: 50%;
   border: 3px solid #C084FC;
+  box-shadow: 0 0 10px #C084FC;
 }
 
 .btn {
@@ -67,6 +69,13 @@ body {
   border-radius: 50px;
   border: none;
   cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  background: #6D28D9;
 }
 
 .confetti-container {
@@ -114,8 +123,10 @@ body {
 
 </div>
 
-<!-- 🎵 MUSICA -->
-<audio id="musica" src="musica.mp3"></audio>
+<!-- 🎵 AUDIO -->
+<audio id="musica" preload="auto">
+  <source src="musica.mp3" type="audio/mpeg">
+</audio>
 
 <script>
 const cores = ['#A855F7','#C084FC','#ffffff'];
@@ -133,8 +144,15 @@ function criarConfeto() {
 }
 
 function explodir() {
-  // 🎵 toca música
-  document.getElementById("musica").play();
+  const audio = document.getElementById("musica");
+
+  audio.currentTime = 0;
+  audio.volume = 0.7;
+
+  // 🔊 garante que toca
+  audio.play().catch(() => {
+    alert("Clica de novo pra tocar a música 🔊");
+  });
 
   // 💥 confete
   for (let i = 0; i < 100; i++) {
